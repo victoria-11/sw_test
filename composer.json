@@ -1,0 +1,8 @@
+{
+    "require": {
+        "nikic/fast-route": "^1.3",
+        "symfony/http-kernel": "^5.1",
+        "predis/predis": "^1.1",
+        "middlewares/request-handler": "^2.0"
+    }
+}
