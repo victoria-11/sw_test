@@ -1,0 +1,47 @@
+version: '3.1'
+
+networks:
+  ws_test:
+
+services:
+  php-fpm:
+    image: 'bitnami/php-fpm:latest'
+    links:
+      - db
+    networks:
+      - ws_test
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - db
+
+  web:
+    image: nginx
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - ./src:/var/www/html
+    ports:
+     - "8080:80"
+    environment:
+     - NGINX_HOST=foobar.com
+     - NGINX_PORT=80
+    links:
+      - php-fpm
+    networks:
+      - ws_test
+
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+    networks:
+      - ws_test
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8765:8080
+    networks:
+      - ws_test
