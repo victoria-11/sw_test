@@ -25,6 +25,7 @@ class UrlShortener implements ShortenerInterface
         $this->padding = $padding;
     }
 
+    // Честно украла все, что дальше
     public function doShort(string $url): string {
         $k = 0;
         $n = time();

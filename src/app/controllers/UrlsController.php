@@ -25,6 +25,6 @@ class UrlsController
 
         $response = JsonResponse::fromJsonString($data);
 
-        echo $response;
+        return $response->send();
     }
 }

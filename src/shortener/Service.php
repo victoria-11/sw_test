@@ -33,7 +33,10 @@ class Service
     }
 
     public function save(string $longUrl, string $shortUrl): Model {
-        return $this->dbService->save($longUrl, $shortUrl);
+        return $this->dbService->save(
+            $this->prepareUrl($longUrl),
+            $shortUrl
+        );
     }
 
     public function find(string $url): ?Model {
@@ -57,6 +60,16 @@ class Service
         $shortener = new UrlShortener();
 
         $this->setShortener($shortener);
+    }
+
+    protected function prepareUrl(string $url): string {
+        $firstChar = $url[0];
+
+        if($firstChar != '/') {
+            $url = "/{$url}";
+        }
+
+        return $url;
     }
 
 }
