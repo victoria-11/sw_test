@@ -37,7 +37,7 @@ services:
             MYSQL_USER: dev
             MYSQL_PASSWORD: secret
         volumes:
-            - ./data:/var/lib/mysql
+            - ./dump:/docker-entrypoint-initdb.d
         ports:
             - 6033:3306
         networks:
