@@ -33,6 +33,12 @@ class Service
     }
 
     public function save(string $longUrl, string $shortUrl): Model {
+        $model = $this->dbService->find($shortUrl);
+
+        if($model) {
+            throw new \Exception("This short link already exists!");
+        }
+
         return $this->dbService->save(
             $this->prepareUrl($longUrl),
             $shortUrl

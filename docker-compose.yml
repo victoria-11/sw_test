@@ -14,6 +14,14 @@ services:
         networks:
             - ws_test
 
+    composer:
+        image: composer
+        command: ["composer", "update"]
+        depends_on:
+          - php-fpm
+        volumes:
+            - ./src:/app
+
     web:
         image: nginx
         volumes:
